@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録 - FANZAランキング</title>
+</head>
+<body>
+    <h1>新規商品登録</h1>
+    <form action="/create" method="POST">
+        <label for="rank">ランク:</label><br>
+        <input type="number" name="rank" required><br><br>
+        
+        <label for="title">タイトル:</label><br>
+        <input type="text" name="title" required><br><br>
+        
+        <label for="genre">ジャンル:</label><br>
+        <select name="genre" required>
+            <option value="アニメ">アニメ</option>
+            <option value="実写">実写</option>
+            <option value="CG">CG</option>
+        </select><br><br>
+        
+        <label for="price">価格:</label><br>
+        <input type="number" name="price" required><br><br>
+        
+        <label for="releaseDate">発売日:</label><br>
+        <input type="date" name="releaseDate" required><br><br>
+        
+        <input type="submit" value="登録">
+    </form>
+    <p><a href="/">ランキング一覧に戻る</a></p>
+</body>
+</html>

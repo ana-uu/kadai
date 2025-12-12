@@ -1,0 +1,16 @@
+{
+  "name": "ranking-sites",
+  "version": "1.0.0",
+  "description": "Three independent ranking websites",
+  "main": "fanza_ranking.js",
+  "scripts": {
+    "start-fanza": "node fanza_ranking.js",
+    "start-amazon": "node amazon_ranking.js",
+    "start-tourism": "node tourism_ranking.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "keywords": ["ranking", "express", "ejs"]
+}

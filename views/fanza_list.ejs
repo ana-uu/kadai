@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FANZAランキング</title>
+</head>
+<body>
+    <h1>FANZA売れ行きランキング</h1>
+    <table border="1">
+        <tr>
+            <th>ランク</th>
+            <th>タイトル</th>
+            <th>ジャンル</th>
+            <th>価格</th>
+        </tr>
+        <% data.forEach(function(item) { %>
+        <tr>
+            <td><%= item.rank %></td>
+            <td><a href="/<%= item.id %>"><%= item.title %></a></td>
+            <td><%= item.genre %></td>
+            <td>¥<%= item.price %></td>
+        </tr>
+        <% }); %>
+    </table>
+    <p><a href="/create">新規登録</a></p>
+</body>
+</html>

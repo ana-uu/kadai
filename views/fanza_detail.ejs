@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= item.title %>の詳細</title>
+</head>
+<body>
+    <h1><%= item.title %>の詳細</h1>
+    <table border="1">
+        <tr>
+            <th>項目</th>
+            <th>データ</th>
+        </tr>
+        <tr>
+            <td>ランク</td>
+            <td><%= item.rank %>位</td>
+        </tr>
+        <tr>
+            <td>タイトル</td>
+            <td><%= item.title %></td>
+        </tr>
+        <tr>
+            <td>ジャンル</td>
+            <td><%= item.genre %></td>
+        </tr>
+        <tr>
+            <td>価格</td>
+            <td>¥<%= item.price %></td>
+        </tr>
+        <tr>
+            <td>発売日</td>
+            <td><%= item.releaseDate %></td>
+        </tr>
+    </table>
+    <p><a href="/">ランキング一覧に戻る</a></p>
+</body>
+</html>
