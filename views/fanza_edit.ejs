@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>編集 - FANZA動画ランキング</title>
+</head>
+<body>
+    <h1>動画編集</h1>
+    <form action="/edit/<%= item.id %>" method="POST">
+        <label for="rank">ランク:</label><br>
+        <input type="number" name="rank" value="<%= item.rank %>" required><br><br>
+        
+        <label for="title">動画名:</label><br>
+        <input type="text" name="title" value="<%= item.title %>" required><br><br>
+        
+        <label for="genre">ジャンル:</label><br>
+        <input type="text" name="genre" value="<%= item.genre %>" required><br><br>
+        
+        <label for="price">価格:</label><br>
+        <input type="number" name="price" value="<%= item.price %>" required><br><br>
+        
+        <label for="releaseDate">発売日:</label><br>
+        <input type="date" name="releaseDate" value="<%= item.releaseDate %>" required><br><br>
+        
+        <label for="actress">女優名:</label><br>
+        <input type="text" name="actress" value="<%= item.actress %>" required><br><br>
+        
+        <label for="link">リンク:</label><br>
+        <input type="url" name="link" value="<%= item.link %>" required><br><br>
+        
+        <input type="submit" value="更新">
+    </form>
+    <p><a href="/">ランキング一覧に戻る</a></p>
+</body>
+</html>

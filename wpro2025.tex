@@ -1,0 +1,287 @@
+\documentclass{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[dvipdfmx]{xcolor}
+\usepackage{listings}
+\usepackage{url}
+
+\title{ランキングサイト仕様書}
+\author{25G1029 大橋慶眞}
+\date{\today}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    frame={tb},
+    breaklines=true,
+    numbers=left,
+    numberstyle=\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    tabsize=4,
+    showspaces=false,
+    xleftmargin=17pt,
+    framexleftmargin=17pt,
+}
+
+\begin{document}
+\maketitle
+
+\section*{GitHubリポジトリURL}
+\url{https://github.com/username/webpro_06}
+
+\tableofcontents
+\newpage
+
+\section{概要}
+
+本仕様書は，一覧表示をベースとした3つのWebアプリケーションの開発仕様を定義するものである．
+各アプリケーションは独立したランキング情報管理システムとして動作し，
+Express.jsフレームワークを使用してWebサービスとして提供される．
+
+\subsection{開発対象システム}
+
+\begin{enumerate}
+\item FANZA動画ランキングサイト - デジタル動画コンテンツの売れ行きランキング管理
+\item DLsiteランキングサイト - 同人作品の売れ行きランキング管理
+\item メロンブックスランキングサイト - 同人誌の売れ行きランキング管理
+\end{enumerate}
+
+\section{第1部：利用者向け仕様}
+
+\subsection{システム概要}
+
+3つの独立したランキングサイトを提供し，各分野の人気商品・観光地の情報を
+閲覧・登録できるWebサービスである．
+
+\subsection{利用方法}
+
+\subsubsection{アクセス方法}
+
+各サイトは異なるポートで動作しており，ブラウザで以下のURLにアクセスすることで利用できる．
+FANZA動画ランキングは\url{http://localhost:8081}，
+DLsiteランキングは\url{http://localhost:8082}，
+メロンブックスランキングは\url{http://localhost:8083}でアクセス可能である．
+
+\subsubsection{基本機能}
+
+\paragraph{ランキング一覧表示}
+各サイトのトップページでランキング一覧を表形式で確認できる．
+表示される情報は以下の通りである：
+
+\begin{table}[h]
+\centering
+\caption{各サイトの表示項目}
+\begin{tabular}{|l|l|}
+\hline
+サイト & 表示項目 \\
+\hline
+FANZA & ランク、動画名、女優名 \\
+DLsite & ランク、作品名、サークル名 \\
+メロンブックス & ランク、書籍名、著者 \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{詳細情報表示}
+一覧のタイトル・商品名・観光地名をクリックすると，
+詳細情報ページが表示される．
+詳細ページでは各サイトの特性に応じた情報を確認できる．
+FANZAサイトではランク、動画名、ジャンル、価格、発売日、女優名、動画リンクが表示され，
+DLsiteサイトではランク、作品名、サークル名、ジャンル、価格、評価、作品リンクが表示され，
+メロンブックスサイトではランク、書籍名、著者、サークル、ジャンル、価格、書籍リンクが表示される．
+
+\paragraph{新規データ登録}
+「新規登録」リンクから新しいランキングデータを追加できる．
+必要な情報を入力フォームに記入し，「登録」ボタンを押すことで登録できる．
+
+\subsection{利用上の注意事項}
+
+各サイトは独立して動作するため，データは共有されないことに注意が必要である．
+また，登録したデータはサーバー再起動時に初期化されるため，永続的なデータ保存は行われない．
+数値項目には適切な値を入力する必要があり，不正な値を入力した場合はエラーが発生する可能性がある．
+
+\section{第2部：管理者向け仕様}
+
+\subsection{システム管理}
+
+\subsubsection{サーバー起動・停止}
+
+各サイトは独立したNode.jsプロセスとして動作する．
+
+\paragraph{起動方法}
+\begin{lstlisting}
+# FANZAランキングサイト
+node fanza_ranking.js
+
+# Amazonランキングサイト  
+node amazon_ranking.js
+
+# 観光地ランキングサイト
+node tourism_ranking.js
+\end{lstlisting}
+
+\paragraph{停止方法}
+各プロセスでCtrl+Cを押下してサーバーを停止する．
+
+\subsubsection{ポート管理}
+
+各サイトは以下のポートで動作する：
+
+\begin{table}[h]
+\centering
+\caption{ポート割り当て}
+\begin{tabular}{|l|c|}
+\hline
+サイト & ポート番号 \\
+\hline
+FANZAランキング & 8081 \\
+Amazonランキング & 8082 \\
+観光地ランキング & 8083 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{データ管理}
+
+現在の実装では，データはメモリ内の配列として管理されている．
+サーバー再起動時にはサンプルデータに戻る．
+
+\paragraph{初期データ}
+各サイトには5件のサンプルデータが設定されている．
+
+\paragraph{データバックアップ}
+本格運用時には，データベースへの移行を推奨する．
+
+\subsection{運用監視}
+
+\subsubsection{ログ監視}
+各サーバーの起動時にコンソールに起動メッセージが表示される．
+エラー発生時はコンソールログを確認する必要がある．
+
+\subsubsection{アクセス監視}
+Express.jsの標準ログ機能により，アクセス状況を監視できる．
+
+\section{第3部：開発者向け仕様}
+
+\subsection{技術仕様}
+
+\subsubsection{開発環境}
+
+本システムの開発にはNode.js（推奨バージョンは14.x以上）、Express.js 4.x、およびEJSテンプレートエンジンが必要である．
+
+\subsubsection{ディレクトリ構成}
+
+\begin{lstlisting}
+kadai/
+├── fanza_ranking.js      # FANZAサイトメイン
+├── amazon_ranking.js     # Amazonサイトメイン  
+├── tourism_ranking.js    # 観光地サイトメイン
+├── package.json          # 依存関係定義
+├── views/                # テンプレートファイル
+│   ├── fanza_list.ejs
+│   ├── fanza_detail.ejs
+│   ├── fanza_new.html
+│   ├── amazon_list.ejs
+│   ├── amazon_detail.ejs
+│   ├── amazon_new.html
+│   ├── tourism_list.ejs
+│   ├── tourism_detail.ejs
+│   └── tourism_new.html
+└── public/               # 静的ファイル（未使用）
+\end{lstlisting}
+
+\subsection{データ構造}
+
+\subsubsection{FANZA動画ランキングデータ}
+
+\begin{lstlisting}
+{
+  id: Number,           // 一意識別子
+  rank: Number,         // ランキング順位
+  title: String,        // 動画タイトル
+  genre: String,        // ジャンル
+  price: Number,        // 価格（円）
+  releaseDate: String,  // 発売日（YYYY-MM-DD）
+  actress: String,      // 女優名
+  link: String          // 動画リンク（URL）
+}
+\end{lstlisting}
+
+\subsubsection{DLsiteランキングデータ}
+
+\begin{lstlisting}
+{
+  id: Number,           // 一意識別子
+  rank: Number,         // ランキング順位
+  productName: String,  // 作品名
+  genre: String,        // ジャンル
+  price: Number,        // 価格（円）
+  rating: Number,       // 評価（1-5）
+  circle: String,       // サークル名
+  link: String          // 作品リンク（URL）
+}
+\end{lstlisting}
+
+\subsubsection{メロンブックスランキングデータ}
+
+\begin{lstlisting}
+{
+  id: Number,           // 一意識別子
+  rank: Number,         // ランキング順位
+  bookName: String,     // 書籍名
+  author: String,       // 著者
+  circle: String,       // サークル
+  genre: String,        // ジャンル
+  price: Number,        // 価格（円）
+  link: String          // 書籍リンク（URL）
+}
+\end{lstlisting}
+
+\subsection{API仕様}
+
+\subsubsection{共通エンドポイント}
+
+各サイトで共通のURL構造を使用する：
+
+\begin{table}[h]
+\centering
+\caption{APIエンドポイント}
+\begin{tabular}{|l|l|l|}
+\hline
+メソッド & URL & 機能 \\
+\hline
+GET & / & 一覧表示 \\
+GET & /create & 新規登録フォーム表示 \\
+POST & /create & 新規データ登録処理 \\
+GET & /:id & 詳細情報表示 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{レスポンス形式}
+
+\paragraph{HTML レスポンス}
+全てのエンドポイントはHTMLページを返す．
+EJSテンプレートエンジンを使用してサーバーサイドレンダリングを行う．
+
+\paragraph{リダイレクト}
+POST処理後は一覧ページ（/）にリダイレクトする．
+
+\subsection{拡張仕様}
+
+\subsubsection{データベース連携}
+
+将来的な拡張として，データの永続化のためにデータベース連携を想定している．
+候補としてはMongoDB（NoSQLデータベース）、MySQL（リレーショナルデータベース）、SQLite（軽量データベース）がある．
+
+\subsubsection{追加機能}
+
+現在の基本機能に加えて，将来的にはデータ編集機能、データ削除機能、検索・フィルタ機能、ページネーション、ユーザー認証などの機能を追加することを想定している．
+
+\subsection{セキュリティ考慮事項}
+
+本システムのセキュリティ対策として，入力値検証の実装、SQLインジェクション対策、XSS攻撃対策、CSRF攻撃対策などを実装する必要がある．
+
+\end{document}

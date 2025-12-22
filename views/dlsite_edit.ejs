@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>編集 - DLsiteランキング</title>
+</head>
+<body>
+    <h1>作品編集</h1>
+    <form action="/edit/<%= item.id %>" method="POST">
+        <label for="rank">ランク:</label><br>
+        <input type="number" name="rank" value="<%= item.rank %>" required><br><br>
+        
+        <label for="productName">作品名:</label><br>
+        <input type="text" name="productName" value="<%= item.productName %>" required><br><br>
+        
+        <label for="circle">サークル名:</label><br>
+        <input type="text" name="circle" value="<%= item.circle %>" required><br><br>
+        
+        <label for="genre">ジャンル:</label><br>
+        <input type="text" name="genre" value="<%= item.genre %>" required><br><br>
+        
+        <label for="price">価格:</label><br>
+        <input type="number" name="price" value="<%= item.price %>" required><br><br>
+        
+        <label for="rating">評価:</label><br>
+        <input type="number" name="rating" min="1" max="5" step="0.1" value="<%= item.rating %>" required><br><br>
+        
+        <label for="link">リンク:</label><br>
+        <input type="url" name="link" value="<%= item.link %>" required><br><br>
+        
+        <input type="submit" value="更新">
+    </form>
+    <p><a href="/">ランキング一覧に戻る</a></p>
+</body>
+</html>

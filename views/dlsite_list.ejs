@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLsiteランキング</title>
+</head>
+<body>
+    <h1>DLsite売れ筋ランキング</h1>
+    <table border="1">
+        <tr>
+            <th>ランク</th>
+            <th>作品名</th>
+            <th>サークル名</th>
+            <th>操作</th>
+        </tr>
+        <% data.forEach(function(item) { %>
+        <tr>
+            <td><%= item.rank %>位</td>
+            <td><a href="/<%= item.id %>"><%= item.productName %></a></td>
+            <td><%= item.circle %></td>
+            <td>
+                <a href="/edit/<%= item.id %>">編集</a> | 
+                <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
+                    <input type="submit" value="削除" onclick="return confirm('本当に削除しますか?')">
+                </form>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+    <p><a href="/create">新規登録</a></p>
+</body>
+</html>

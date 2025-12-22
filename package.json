@@ -5,8 +5,8 @@
   "main": "fanza_ranking.js",
   "scripts": {
     "start-fanza": "node fanza_ranking.js",
-    "start-amazon": "node amazon_ranking.js",
-    "start-tourism": "node tourism_ranking.js"
+    "start-dlsite": "node dlsite_ranking.js",
+    "start-melonbooks": "node melonbooks_ranking.js"
   },
   "dependencies": {
     "ejs": "^3.1.10",

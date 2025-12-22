@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FANZAランキング</title>
+    <title>FANZA動画ランキング</title>
 </head>
 <body>
-    <h1>FANZA売れ行きランキング</h1>
+    <h1>FANZA動画ランキング</h1>
     <table border="1">
         <tr>
             <th>ランク</th>
-            <th>タイトル</th>
-            <th>ジャンル</th>
-            <th>価格</th>
+            <th>動画名</th>
+            <th>女優名</th>
+            <th>操作</th>
         </tr>
         <% data.forEach(function(item) { %>
         <tr>
-            <td><%= item.rank %></td>
+            <td><%= item.rank %>位</td>
             <td><a href="/<%= item.id %>"><%= item.title %></a></td>
-            <td><%= item.genre %></td>
-            <td>¥<%= item.price %></td>
+            <td><%= item.actress %></td>
+            <td>
+                <a href="/edit/<%= item.id %>">編集</a> | 
+                <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
+                    <input type="submit" value="削除" onclick="return confirm('本当に削除しますか?')">
+                </form>
+            </td>
         </tr>
         <% }); %>
     </table>
