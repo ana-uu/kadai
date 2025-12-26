@@ -10,73 +10,91 @@
 
 ## 1. FANZAランキングサイト
 
-- [ ] バックエンド開発
+- [x] バックエンド開発
   - [x] メインファイルの基本構造作成 :computer:
   - [x] サンプルデータの作成 :computer:
   - [x] 一覧表示ルート実装 :computer:
   - [x] 詳細表示ルート実装 :computer:
   - [x] 新規登録フォームルート実装 :computer:
   - [x] 新規登録処理ルート実装 :computer:
+  - [x] 編集フォームルート実装 :computer:
+  - [x] 編集処理ルート実装 :computer:
+  - [x] 削除処理ルート実装 :computer:
 
-- [ ] フロントエンド開発
+- [x] フロントエンド開発
   - [x] 一覧ページ作成 :writing_hand:
   - [x] 詳細ページ作成 :writing_hand:
   - [x] 新規登録フォーム作成 :writing_hand:
+  - [x] 編集フォーム作成 :writing_hand:
 
-- [ ] テスト・デバッグ
-  - [ ] 一覧表示の動作確認 :computer:
-  - [ ] 詳細表示の動作確認 :computer:
-  - [ ] 新規登録の動作確認 :computer:
-  - [ ] エラーハンドリングの確認 :computer:
+- [x] テスト・デバッグ
+  - [x] 一覧表示の動作確認 :computer:
+  - [x] 詳細表示の動作確認 :computer:
+  - [x] 新規登録の動作確認 :computer:
+  - [x] 編集機能の動作確認 :computer:
+  - [x] 削除機能の動作確認 :computer:
+  - [x] エラーハンドリングの確認 :computer:
 
-## 2. Amazonランキングサイト
+## 2. DLsiteランキングサイト
 
-- [ ] バックエンド開発
-  - [ ] メインファイルの基本構造作成 :computer:
-  - [ ] サンプルデータの作成 :computer:
-  - [ ] 一覧表示ルート実装 :computer:
-  - [ ] 詳細表示ルート実装 :computer:
-  - [ ] 新規登録フォームルート実装 :computer:
-  - [ ] 新規登録処理ルート実装 :computer:
+- [x] バックエンド開発
+  - [x] メインファイルの基本構造作成 :computer:
+  - [x] サンプルデータの作成 :computer:
+  - [x] 一覧表示ルート実装 :computer:
+  - [x] 詳細表示ルート実装 :computer:
+  - [x] 新規登録フォームルート実装 :computer:
+  - [x] 新規登録処理ルート実装 :computer:
+  - [x] 編集フォームルート実装 :computer:
+  - [x] 編集処理ルート実装 :computer:
+  - [x] 削除処理ルート実装 :computer:
 
-- [ ] フロントエンド開発
-  - [ ] 一覧ページ作成 :writing_hand:
-  - [ ] 詳細ページ作成 :writing_hand:
-  - [ ] 新規登録フォーム作成 :writing_hand:
+- [x] フロントエンド開発
+  - [x] 一覧ページ作成 :writing_hand:
+  - [x] 詳細ページ作成 :writing_hand:
+  - [x] 新規登録フォーム作成 :writing_hand:
+  - [x] 編集フォーム作成 :writing_hand:
 
-- [ ] テスト・デバッグ
-  - [ ] 一覧表示の動作確認 :computer:
-  - [ ] 詳細表示の動作確認 :computer:
-  - [ ] 新規登録の動作確認 :computer:
-  - [ ] エラーハンドリングの確認 :computer:
+- [x] テスト・デバッグ
+  - [x] 一覧表示の動作確認 :computer:
+  - [x] 詳細表示の動作確認 :computer:
+  - [x] 新規登録の動作確認 :computer:
+  - [x] 編集機能の動作確認 :computer:
+  - [x] 削除機能の動作確認 :computer:
+  - [x] エラーハンドリングの確認 :computer:
 
-## 3. 観光地ランキングサイト
+## 3. メロンブックスランキングサイト
 
-- [ ] バックエンド開発
-  - [ ] メインファイルの基本構造作成 :computer:
-  - [ ] サンプルデータの作成 :computer:
-  - [ ] 一覧表示ルート実装 :computer:
-  - [ ] 詳細表示ルート実装 :computer:
-  - [ ] 新規登録フォームルート実装 :computer:
-  - [ ] 新規登録処理ルート実装 :computer:
+- [x] バックエンド開発
+  - [x] メインファイルの基本構造作成 :computer:
+  - [x] サンプルデータの作成 :computer:
+  - [x] 一覧表示ルート実装 :computer:
+  - [x] 詳細表示ルート実装 :computer:
+  - [x] 新規登録フォームルート実装 :computer:
+  - [x] 新規登録処理ルート実装 :computer:
+  - [x] 編集フォームルート実装 :computer:
+  - [x] 編集処理ルート実装 :computer:
+  - [x] 削除処理ルート実装 :computer:
 
-- [ ] フロントエンド開発
-  - [ ] 一覧ページ作成 :writing_hand:
-  - [ ] 詳細ページ作成 :writing_hand:
-  - [ ] 新規登録フォーム作成 :writing_hand:
+- [x] フロントエンド開発
+  - [x] 一覧ページ作成 :writing_hand:
+  - [x] 詳細ページ作成 :writing_hand:
+  - [x] 新規登録フォーム作成 :writing_hand:
+  - [x] 編集フォーム作成 :writing_hand:
 
-- [ ] テスト・デバッグ
-  - [ ] 一覧表示の動作確認 :computer:
-  - [ ] 詳細表示の動作確認 :computer:
-  - [ ] 新規登録の動作確認 :computer:
-  - [ ] エラーハンドリングの確認 :computer:
+- [x] テスト・デバッグ
+  - [x] 一覧表示の動作確認 :computer:
+  - [x] 詳細表示の動作確認 :computer:
+  - [x] 新規登録の動作確認 :computer:
+  - [x] 編集機能の動作確認 :computer:
+  - [x] 削除機能の動作確認 :computer:
+  - [x] エラーハンドリングの確認 :computer:
 
 ## 最終確認・提出
 
-- [ ] 全体テスト
-  - [ ] 3つのサイトが異なるポートで独立動作することを確認 :computer:
-  - [ ] 各サイトのルートパスが正しく設定されていることを確認 :computer:
-  - [ ] 各サイトのCRUD機能が正常動作することを確認 :computer:
+- [x] 全体テスト
+  - [x] 3つのサイトが異なるポートで独立動作することを確認 :computer:
+  - [x] 各サイトのルートパスが正しく設定されていることを確認 :computer:
+  - [x] 各サイトのCRUD機能が正常動作することを確認 :computer:
 
 - [ ] ドキュメント整備
   - [ ] README.mdの更新 :writing_hand:

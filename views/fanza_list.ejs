@@ -17,17 +17,17 @@
         <% data.forEach(function(item) { %>
         <tr>
             <td><%= item.rank %>位</td>
-            <td><a href="/<%= item.id %>"><%= item.title %></a></td>
+            <td><a href="/fanza/<%= item.id %>"><%= item.title %></a></td>
             <td><%= item.actress %></td>
             <td>
-                <a href="/edit/<%= item.id %>">編集</a> | 
-                <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
+                <a href="/fanza/edit/<%= item.id %>">編集</a> | 
+                <form action="/fanza/delete/<%= item.id %>" method="POST" style="display: inline;">
                     <input type="submit" value="削除" onclick="return confirm('本当に削除しますか?')">
                 </form>
             </td>
         </tr>
         <% }); %>
     </table>
-    <p><a href="/create">新規登録</a></p>
+    <p><a href="/fanza/create">新規登録</a></p>
 </body>
 </html>

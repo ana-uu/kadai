@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>新規動画登録</h1>
-    <form action="/create" method="POST">
+    <form action="/fanza/create" method="POST">
         <label for="rank">ランク:</label><br>
-        <input type="number" name="rank" required><br><br>
+        <input type="number" name="rank" min="1" required><br><br>
         
         <label for="title">動画名:</label><br>
         <input type="text" name="title" required><br><br>
@@ -17,7 +17,7 @@
         <input type="text" name="genre" required><br><br>
         
         <label for="price">価格:</label><br>
-        <input type="number" name="price" required><br><br>
+        <input type="number" name="price" min="0" required><br><br>
         
         <label for="releaseDate">発売日:</label><br>
         <input type="date" name="releaseDate" required><br><br>
@@ -30,6 +30,6 @@
         
         <input type="submit" value="登録">
     </form>
-    <p><a href="/">ランキング一覧に戻る</a></p>
+    <p><a href="/fanza">ランキング一覧に戻る</a></p>
 </body>
 </html>

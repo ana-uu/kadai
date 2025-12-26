@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>新規書籍登録</h1>
-    <form action="/create" method="POST">
+    <form action="/melonbooks/create" method="POST">
         <label for="rank">ランク:</label><br>
-        <input type="number" name="rank" required><br><br>
+        <input type="number" name="rank" min="1" required><br><br>
         
         <label for="bookName">書籍名:</label><br>
         <input type="text" name="bookName" required><br><br>
@@ -23,13 +23,13 @@
         <input type="text" name="genre" required><br><br>
         
         <label for="price">価格:</label><br>
-        <input type="number" name="price" required><br><br>
+        <input type="number" name="price" min="0" required><br><br>
         
         <label for="link">リンク:</label><br>
         <input type="url" name="link" required><br><br>
         
         <input type="submit" value="登録">
     </form>
-    <p><a href="/">ランキング一覧に戻る</a></p>
+    <p><a href="/melonbooks">ランキング一覧に戻る</a></p>
 </body>
 </html>

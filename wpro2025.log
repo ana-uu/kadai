@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.uptex) (TeX Live 2025) (preloaded format=uplatex 2025.4.24)  21 DEC 2025 19:23
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.uptex) (TeX Live 2025) (preloaded format=uplatex 2025.4.24)  27 DEC 2025 00:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,29 +244,35 @@ LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 (Font)              scaled to size 11.09619pt on input line 43.
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 78.
+(Font)              scaled to size 8.32214pt on input line 75.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 78.
+(Font)              scaled to size 8.32214pt on input line 75.
 
 
 [2]
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 122.
+(Font)              scaled to size 8.32214pt on input line 129.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 122.
+(Font)              scaled to size 8.32214pt on input line 129.
 
 
 [3]
 
 [4]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
 [5]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
+85.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 285.
 
-[6] (./wpro2025.aux)
+
+[6]
+
+[7] (./wpro2025.aux)
  ***********
 pLaTeX2e <2023-02-14u04>+1, based on
 LaTeX2e <2024-11-01> patch level 2
@@ -274,12 +280,12 @@ L3 programming layer <2025-03-26>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3553 strings out of 470271
- 51527 string characters out of 5486374
- 547249 words of memory out of 5000000
- 30379 multiletter control sequences out of 15000+600000
+ 3574 strings out of 470271
+ 51902 string characters out of 5486374
+ 552249 words of memory out of 5000000
+ 30397 multiletter control sequences out of 15000+600000
  637924 words of font info for 98 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 57i,8n,65p,206b,1163s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,8n,65p,286b,1756s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on wpro2025.dvi (6 pages, 24516 bytes).
+Output written on wpro2025.dvi (7 pages, 29812 bytes).

@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 
@@ -14,17 +15,17 @@ let dlsiteRanking = [
 ];
 
 // 一覧表示
-app.get("/", (req, res) => {
+app.get("/dlsite", (req, res) => {
   res.render('dlsite_list', {data: dlsiteRanking});
 });
 
 // 新規登録フォーム
-app.get("/create", (req, res) => {
-  res.sendFile(__dirname + '/views/dlsite_new.html');
+app.get("/dlsite/create", (req, res) => {
+  res.render('dlsite_new');
 });
 
 // 詳細表示
-app.get("/:id", (req, res) => {
+app.get("/dlsite/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = dlsiteRanking.find(d => d.id === id);
   if (item) {
@@ -37,8 +38,24 @@ app.get("/:id", (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 
 // 新規登録処理
-app.post("/create", (req, res) => {
+app.post("/dlsite/create", (req, res) => {
   const newRank = parseInt(req.body.rank);
+  const price = parseInt(req.body.price);
+  const rating = parseFloat(req.body.rating);
+  
+  // バリデーション
+  if (!newRank || newRank < 1) {
+    return res.status(400).send('ランクは1以上の数値を入力してください');
+  }
+  if (!price || price < 0) {
+    return res.status(400).send('価格は0以上の数値を入力してください');
+  }
+  if (!rating || rating < 1 || rating > 5) {
+    return res.status(400).send('評価は1から5の範囲で入力してください');
+  }
+  if (!req.body.productName || !req.body.circle || !req.body.link) {
+    return res.status(400).send('必須項目が入力されていません');
+  }
   
   dlsiteRanking.forEach(item => {
     if (item.rank >= newRank) {
@@ -46,24 +63,27 @@ app.post("/create", (req, res) => {
     }
   });
   
+  // ID生成ルール: 現在の最大ID + 1
+  const maxId = dlsiteRanking.length > 0 ? Math.max(...dlsiteRanking.map(item => item.id)) : 0;
+  
   dlsiteRanking.push({ 
-    id: dlsiteRanking.length + 1,
+    id: maxId + 1,
     rank: newRank,
     productName: req.body.productName,
     genre: req.body.genre,
-    price: parseInt(req.body.price),
-    rating: parseFloat(req.body.rating),
+    price: price,
+    rating: rating,
     circle: req.body.circle,
     link: req.body.link
   });
   
   dlsiteRanking.sort((a, b) => a.rank - b.rank);
   
-  res.redirect('/');
+  res.redirect('/dlsite');
 });
 
 // 編集フォーム
-app.get("/edit/:id", (req, res) => {
+app.get("/dlsite/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = dlsiteRanking.find(d => d.id === id);
   if (item) {
@@ -74,7 +94,7 @@ app.get("/edit/:id", (req, res) => {
 });
 
 // 編集処理
-app.post("/edit/:id", (req, res) => {
+app.post("/dlsite/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = dlsiteRanking.findIndex(d => d.id === id);
   if (index !== -1) {
@@ -106,11 +126,11 @@ app.post("/edit/:id", (req, res) => {
     
     dlsiteRanking.sort((a, b) => a.rank - b.rank);
   }
-  res.redirect('/');
+  res.redirect('/dlsite');
 });
 
 // 削除処理
-app.post("/delete/:id", (req, res) => {
+app.post("/dlsite/delete/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = dlsiteRanking.findIndex(d => d.id === id);
   if (index !== -1) {
@@ -123,7 +143,7 @@ app.post("/delete/:id", (req, res) => {
       }
     });
   }
-  res.redirect('/');
+  res.redirect('/dlsite');
 });
 
 app.listen(8082, () => console.log("DLsite Ranking site listening on port 8082!"));

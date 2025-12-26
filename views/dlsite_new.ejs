@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>新規作品登録</h1>
-    <form action="/create" method="POST">
+    <form action="/dlsite/create" method="POST">
         <label for="rank">ランク:</label><br>
-        <input type="number" name="rank" required><br><br>
+        <input type="number" name="rank" min="1" required><br><br>
         
         <label for="productName">作品名:</label><br>
         <input type="text" name="productName" required><br><br>
@@ -20,7 +20,7 @@
         <input type="text" name="genre" required><br><br>
         
         <label for="price">価格:</label><br>
-        <input type="number" name="price" required><br><br>
+        <input type="number" name="price" min="0" required><br><br>
         
         <label for="rating">評価:</label><br>
         <input type="number" name="rating" min="1" max="5" step="0.1" required><br><br>
@@ -30,6 +30,6 @@
         
         <input type="submit" value="登録">
     </form>
-    <p><a href="/">ランキング一覧に戻る</a></p>
+    <p><a href="/dlsite">ランキング一覧に戻る</a></p>
 </body>
 </html>

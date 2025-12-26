@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 
@@ -14,17 +15,17 @@ let melonbooksRanking = [
 ];
 
 // 一覧表示
-app.get("/", (req, res) => {
+app.get("/melonbooks", (req, res) => {
   res.render('melonbooks_list', {data: melonbooksRanking});
 });
 
 // 新規登録フォーム
-app.get("/create", (req, res) => {
-  res.sendFile(__dirname + '/views/melonbooks_new.html');
+app.get("/melonbooks/create", (req, res) => {
+  res.render('melonbooks_new');
 });
 
 // 詳細表示
-app.get("/:id", (req, res) => {
+app.get("/melonbooks/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = melonbooksRanking.find(m => m.id === id);
   if (item) {
@@ -37,8 +38,20 @@ app.get("/:id", (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 
 // 新規登録処理
-app.post("/create", (req, res) => {
+app.post("/melonbooks/create", (req, res) => {
   const newRank = parseInt(req.body.rank);
+  const price = parseInt(req.body.price);
+  
+  // バリデーション
+  if (!newRank || newRank < 1) {
+    return res.status(400).send('ランクは1以上の数値を入力してください');
+  }
+  if (!price || price < 0) {
+    return res.status(400).send('価格は0以上の数値を入力してください');
+  }
+  if (!req.body.bookName || !req.body.author || !req.body.link) {
+    return res.status(400).send('必須項目が入力されていません');
+  }
   
   // 既存のrankを繰り上げ
   melonbooksRanking.forEach(item => {
@@ -47,26 +60,29 @@ app.post("/create", (req, res) => {
     }
   });
   
+  // ID生成ルール: 現在の最大ID + 1
+  const maxId = melonbooksRanking.length > 0 ? Math.max(...melonbooksRanking.map(item => item.id)) : 0;
+  
   // 新しいデータを追加
   melonbooksRanking.push({ 
-    id: melonbooksRanking.length + 1,
+    id: maxId + 1,
     rank: newRank,
     bookName: req.body.bookName,
     author: req.body.author,
     circle: req.body.circle,
     genre: req.body.genre,
-    price: parseInt(req.body.price),
+    price: price,
     link: req.body.link
   });
   
   // rank順にソート
   melonbooksRanking.sort((a, b) => a.rank - b.rank);
   
-  res.redirect('/');
+  res.redirect('/melonbooks');
 });
 
 // 編集フォーム
-app.get("/edit/:id", (req, res) => {
+app.get("/melonbooks/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = melonbooksRanking.find(m => m.id === id);
   if (item) {
@@ -77,7 +93,7 @@ app.get("/edit/:id", (req, res) => {
 });
 
 // 編集処理
-app.post("/edit/:id", (req, res) => {
+app.post("/melonbooks/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = melonbooksRanking.findIndex(m => m.id === id);
   if (index !== -1) {
@@ -110,11 +126,11 @@ app.post("/edit/:id", (req, res) => {
     
     melonbooksRanking.sort((a, b) => a.rank - b.rank);
   }
-  res.redirect('/');
+  res.redirect('/melonbooks');
 });
 
 // 削除処理
-app.post("/delete/:id", (req, res) => {
+app.post("/melonbooks/delete/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = melonbooksRanking.findIndex(m => m.id === id);
   if (index !== -1) {
@@ -128,7 +144,7 @@ app.post("/delete/:id", (req, res) => {
       }
     });
   }
-  res.redirect('/');
+  res.redirect('/melonbooks');
 });
 
 app.listen(8083, () => console.log("Melonbooks Ranking site listening on port 8083!"));

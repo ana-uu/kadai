@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>作品編集</h1>
-    <form action="/edit/<%= item.id %>" method="POST">
+    <form action="/dlsite/edit/<%= item.id %>" method="POST">
         <label for="rank">ランク:</label><br>
         <input type="number" name="rank" value="<%= item.rank %>" required><br><br>
         
@@ -30,6 +30,6 @@
         
         <input type="submit" value="更新">
     </form>
-    <p><a href="/">ランキング一覧に戻る</a></p>
+    <p><a href="/dlsite">ランキング一覧に戻る</a></p>
 </body>
 </html>

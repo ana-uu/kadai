@@ -41,10 +41,10 @@
             <td><a href="<%= item.link %>" target="_blank"><%= item.link %></a></td>
         </tr>
     </table>
-    <p><a href="/edit/<%= item.id %>">編集</a> | 
-    <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
+    <p><a href="/dlsite/edit/<%= item.id %>">編集</a> | 
+    <form action="/dlsite/delete/<%= item.id %>" method="POST" style="display: inline;">
         <input type="submit" value="削除" onclick="return confirm('本当に削除しますか?')">
     </form></p>
-    <p><a href="/">ランキング一覧に戻る</a></p>
+    <p><a href="/dlsite">ランキング一覧に戻る</a></p>
 </body>
 </html>

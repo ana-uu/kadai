@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 
@@ -14,17 +15,17 @@ let fanzaRanking = [
 ];
 
 // 一覧表示
-app.get("/", (req, res) => {
+app.get("/fanza", (req, res) => {
   res.render('fanza_list', {data: fanzaRanking});
 });
 
 // 新規登録フォーム
-app.get("/create", (req, res) => {
-  res.sendFile(__dirname + '/views/fanza_new.html');
+app.get("/fanza/create", (req, res) => {
+  res.render('fanza_new');
 });
 
 // 詳細表示
-app.get("/:id", (req, res) => {
+app.get("/fanza/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = fanzaRanking.find(f => f.id === id);
   if (item) {
@@ -37,8 +38,20 @@ app.get("/:id", (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 
 // 新規登録処理
-app.post("/create", (req, res) => {
+app.post("/fanza/create", (req, res) => {
   const newRank = parseInt(req.body.rank);
+  const price = parseInt(req.body.price);
+  
+  // バリデーション
+  if (!newRank || newRank < 1) {
+    return res.status(400).send('ランクは1以上の数値を入力してください');
+  }
+  if (!price || price < 0) {
+    return res.status(400).send('価格は0以上の数値を入力してください');
+  }
+  if (!req.body.title || !req.body.actress || !req.body.link) {
+    return res.status(400).send('必須項目が入力されていません');
+  }
   
   fanzaRanking.forEach(item => {
     if (item.rank >= newRank) {
@@ -46,12 +59,15 @@ app.post("/create", (req, res) => {
     }
   });
   
+  // ID生成ルール: 現在の最大ID + 1
+  const maxId = fanzaRanking.length > 0 ? Math.max(...fanzaRanking.map(item => item.id)) : 0;
+  
   fanzaRanking.push({ 
-    id: fanzaRanking.length + 1,
+    id: maxId + 1,
     rank: newRank,
     title: req.body.title,
     genre: req.body.genre,
-    price: parseInt(req.body.price),
+    price: price,
     releaseDate: req.body.releaseDate,
     actress: req.body.actress,
     link: req.body.link
@@ -59,11 +75,11 @@ app.post("/create", (req, res) => {
   
   fanzaRanking.sort((a, b) => a.rank - b.rank);
   
-  res.redirect('/');
+  res.redirect('/fanza');
 });
 
 // 編集フォーム
-app.get("/edit/:id", (req, res) => {
+app.get("/fanza/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = fanzaRanking.find(f => f.id === id);
   if (item) {
@@ -74,7 +90,7 @@ app.get("/edit/:id", (req, res) => {
 });
 
 // 編集処理
-app.post("/edit/:id", (req, res) => {
+app.post("/fanza/edit/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = fanzaRanking.findIndex(f => f.id === id);
   if (index !== -1) {
@@ -106,11 +122,11 @@ app.post("/edit/:id", (req, res) => {
     
     fanzaRanking.sort((a, b) => a.rank - b.rank);
   }
-  res.redirect('/');
+  res.redirect('/fanza');
 });
 
 // 削除処理
-app.post("/delete/:id", (req, res) => {
+app.post("/fanza/delete/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = fanzaRanking.findIndex(f => f.id === id);
   if (index !== -1) {
@@ -123,7 +139,7 @@ app.post("/delete/:id", (req, res) => {
       }
     });
   }
-  res.redirect('/');
+  res.redirect('/fanza');
 });
 
 app.listen(8081, () => console.log("FANZA Video Ranking site listening on port 8081!"));

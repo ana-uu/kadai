@@ -52,17 +52,17 @@ Express.jsフレームワークを使用してWebサービスとして提供さ�
 
 \subsection{システム概要}
 
-3つの独立したランキングサイトを提供し，各分野の人気商品・観光地の情報を
-閲覧・登録できるWebサービスである．
+3つの独立したランキングサイトを提供し，各分野の人気コンテンツの情報を
+閲覧・登録・編集・削除できるWebサービスである．
 
 \subsection{利用方法}
 
 \subsubsection{アクセス方法}
 
 各サイトは異なるポートで動作しており，ブラウザで以下のURLにアクセスすることで利用できる．
-FANZA動画ランキングは\url{http://localhost:8081}，
-DLsiteランキングは\url{http://localhost:8082}，
-メロンブックスランキングは\url{http://localhost:8083}でアクセス可能である．
+FANZA動画ランキングは\url{http://localhost:8081/fanza}，
+DLsiteランキングは\url{http://localhost:8082/dlsite}，
+メロンブックスランキングは\url{http://localhost:8083/melonbooks}でアクセス可能である．
 
 \subsubsection{基本機能}
 
@@ -85,7 +85,7 @@ DLsite & ランク、作品名、サークル名 \\
 \end{table}
 
 \paragraph{詳細情報表示}
-一覧のタイトル・商品名・観光地名をクリックすると，
+一覧のタイトル・作品名・書籍名をクリックすると，
 詳細情報ページが表示される．
 詳細ページでは各サイトの特性に応じた情報を確認できる．
 FANZAサイトではランク、動画名、ジャンル、価格、発売日、女優名、動画リンクが表示され，
@@ -96,11 +96,26 @@ DLsiteサイトではランク、作品名、サークル名、ジャンル、�
 「新規登録」リンクから新しいランキングデータを追加できる．
 必要な情報を入力フォームに記入し，「登録」ボタンを押すことで登録できる．
 
+\paragraph{データ編集・削除}
+各データの詳細ページや一覧ページから「編集」リンクをクリックすることで，
+既存データの編集が可能である．また，「削除」ボタンから不要なデータを削除できる．
+削除時には確認ダイアログが表示され，誤操作を防ぐ仕組みが実装されている．
+
 \subsection{利用上の注意事項}
 
 各サイトは独立して動作するため，データは共有されないことに注意が必要である．
 また，登録したデータはサーバー再起動時に初期化されるため，永続的なデータ保存は行われない．
-数値項目には適切な値を入力する必要があり，不正な値を入力した場合はエラーが発生する可能性がある．
+
+\paragraph{入力値検証}
+以下の項目について入力値検証が実装されている：
+\begin{itemize}
+\item ランク：1以上の整数値のみ許可
+\item 価格：0以上の整数値のみ許可
+\item 評価（DLsiteのみ）：1から5の範囲の数値のみ許可
+\item 必須項目：タイトル・作品名・書籍名，リンク，主要項目が空欄でないこと
+\item URL形式：リンク項目は有効なURL形式であること
+\end{itemize}
+不正な値を入力した場合はエラーメッセージが表示され，登録処理は実行されない．
 
 \section{第2部：管理者向け仕様}
 
@@ -112,14 +127,15 @@ DLsiteサイトではランク、作品名、サークル名、ジャンル、�
 
 \paragraph{起動方法}
 \begin{lstlisting}
-# FANZAランキングサイト
+# npm scriptsを使用した起動（推奨）
+npm run start-fanza
+npm run start-dlsite
+npm run start-melonbooks
+
+# 直接起動
 node fanza_ranking.js
-
-# Amazonランキングサイト  
-node amazon_ranking.js
-
-# 観光地ランキングサイト
-node tourism_ranking.js
+node dlsite_ranking.js
+node melonbooks_ranking.js
 \end{lstlisting}
 
 \paragraph{停止方法}
@@ -137,8 +153,8 @@ node tourism_ranking.js
 サイト & ポート番号 \\
 \hline
 FANZAランキング & 8081 \\
-Amazonランキング & 8082 \\
-観光地ランキング & 8083 \\
+DLsiteランキング & 8082 \\
+メロンブックスランキング & 8083 \\
 \hline
 \end{tabular}
 \end{table}
@@ -171,24 +187,46 @@ Express.jsの標準ログ機能により，アクセス状況を監視できる�
 
 本システムの開発にはNode.js（推奨バージョンは14.x以上）、Express.js 4.x、およびEJSテンプレートエンジンが必要である．
 
+\paragraph{環境セットアップ}
+依存関係のインストールには以下のコマンドを実行する：
+\begin{lstlisting}
+npm install
+\end{lstlisting}
+
+\paragraph{package.json}
+プロジェクトの設定と依存関係を定義するファイル．以下の内容が含まれる：
+\begin{itemize}
+\item Express.js 4.x - Webアプリケーションフレームワーク
+\item EJS 3.x - サーバーサイドテンプレートエンジン  
+\item 起動スクリプト - 各サイトの個別起動コマンド定義
+\end{itemize}
+
+\paragraph{package-lock.json}
+依存関係の正確なバージョンを記録し，異なる環境での再現性を保証するファイル．
+npm installの実行時に自動生成される．
+
 \subsubsection{ディレクトリ構成}
 
 \begin{lstlisting}
 kadai/
 ├── fanza_ranking.js      # FANZAサイトメイン
-├── amazon_ranking.js     # Amazonサイトメイン  
-├── tourism_ranking.js    # 観光地サイトメイン
+├── dlsite_ranking.js     # DLsiteサイトメイン  
+├── melonbooks_ranking.js # メロンブックスサイトメイン
 ├── package.json          # 依存関係定義
+├── package-lock.json     # 依存関係バージョン固定
 ├── views/                # テンプレートファイル
 │   ├── fanza_list.ejs
 │   ├── fanza_detail.ejs
-│   ├── fanza_new.html
-│   ├── amazon_list.ejs
-│   ├── amazon_detail.ejs
-│   ├── amazon_new.html
-│   ├── tourism_list.ejs
-│   ├── tourism_detail.ejs
-│   └── tourism_new.html
+│   ├── fanza_new.ejs
+│   ├── fanza_edit.ejs
+│   ├── dlsite_list.ejs
+│   ├── dlsite_detail.ejs
+│   ├── dlsite_new.ejs
+│   ├── dlsite_edit.ejs
+│   ├── melonbooks_list.ejs
+│   ├── melonbooks_detail.ejs
+│   ├── melonbooks_new.ejs
+│   └── melonbooks_edit.ejs
 └── public/               # 静的ファイル（未使用）
 \end{lstlisting}
 
@@ -198,11 +236,11 @@ kadai/
 
 \begin{lstlisting}
 {
-  id: Number,           // 一意識別子
+  id: Number,           // 一意識別子（現在の最大ID + 1で自動生成）
   rank: Number,         // ランキング順位
   title: String,        // 動画タイトル
   genre: String,        // ジャンル
-  price: Number,        // 価格（円）
+  price: Number,        // 価格（円、0以上）
   releaseDate: String,  // 発売日（YYYY-MM-DD）
   actress: String,      // 女優名
   link: String          // 動画リンク（URL）
@@ -213,12 +251,12 @@ kadai/
 
 \begin{lstlisting}
 {
-  id: Number,           // 一意識別子
+  id: Number,           // 一意識別子（現在の最大ID + 1で自動生成）
   rank: Number,         // ランキング順位
   productName: String,  // 作品名
   genre: String,        // ジャンル
-  price: Number,        // 価格（円）
-  rating: Number,       // 評価（1-5）
+  price: Number,        // 価格（円、0以上）
+  rating: Number,       // 評価（1-5の範囲）
   circle: String,       // サークル名
   link: String          // 作品リンク（URL）
 }
@@ -228,13 +266,13 @@ kadai/
 
 \begin{lstlisting}
 {
-  id: Number,           // 一意識別子
+  id: Number,           // 一意識別子（現在の最大ID + 1で自動生成）
   rank: Number,         // ランキング順位
   bookName: String,     // 書籍名
   author: String,       // 著者
   circle: String,       // サークル
   genre: String,        // ジャンル
-  price: Number,        // 価格（円）
+  price: Number,        // 価格（円、0以上）
   link: String          // 書籍リンク（URL）
 }
 \end{lstlisting}
@@ -243,7 +281,8 @@ kadai/
 
 \subsubsection{共通エンドポイント}
 
-各サイトで共通のURL構造を使用する：
+各サイトで統一されたURL構造を使用する：
+\{site\}はFANZAの場合は「fanza」，DLsiteの場合は「dlsite」，メロンブックスの場合は「melonbooks」となる．
 
 \begin{table}[h]
 \centering
@@ -252,10 +291,13 @@ kadai/
 \hline
 メソッド & URL & 機能 \\
 \hline
-GET & / & 一覧表示 \\
-GET & /create & 新規登録フォーム表示 \\
-POST & /create & 新規データ登録処理 \\
-GET & /:id & 詳細情報表示 \\
+GET & /{site} & 一覧表示 \\
+GET & /{site}/create & 新規登録フォーム表示 \\
+POST & /{site}/create & 新規データ登録処理 \\
+GET & /{site}/:id & 詳細情報表示 \\
+GET & /{site}/edit/:id & 編集フォーム表示 \\
+POST & /{site}/edit/:id & データ編集処理 \\
+POST & /{site}/delete/:id & データ削除処理 \\
 \hline
 \end{tabular}
 \end{table}
@@ -269,16 +311,11 @@ EJSテンプレートエンジンを使用してサーバーサイドレンダ�
 \paragraph{リダイレクト}
 POST処理後は一覧ページ（/）にリダイレクトする．
 
-\subsection{拡張仕様}
+\subsection{セキュリティ考慮事項}
 
-\subsubsection{データベース連携}
+本システムのセキュリティ対策として，入力値検証の実装、SQLインジェクション対策、XSS攻撃対策、CSRF攻撃対策などを実装する必要がある。
 
-将来的な拡張として，データの永続化のためにデータベース連携を想定している．
-候補としてはMongoDB（NoSQLデータベース）、MySQL（リレーショナルデータベース）、SQLite（軽量データベース）がある．
-
-\subsubsection{追加機能}
-
-現在の基本機能に加えて，将来的にはデータ編集機能、データ削除機能、検索・フィルタ機能、ページネーション、ユーザー認証などの機能を追加することを想定している．
+\end{document}
 
 \subsection{セキュリティ考慮事項}
 
