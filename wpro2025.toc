@@ -39,7 +39,4 @@
 \contentsline {subsubsection}{\numberline {4.3.2}レスポンス形式}{6}{}%
 \contentsline {paragraph}{HTML レスポンス}{6}{}%
 \contentsline {paragraph}{リダイレクト}{6}{}%
-\contentsline {subsection}{\numberline {4.4}拡張仕様}{7}{}%
-\contentsline {subsubsection}{\numberline {4.4.1}データベース連携}{7}{}%
-\contentsline {subsubsection}{\numberline {4.4.2}追加機能}{7}{}%
-\contentsline {subsection}{\numberline {4.5}セキュリティ考慮事項}{7}{}%
+\contentsline {subsection}{\numberline {4.4}セキュリティ考慮事項}{7}{}%
